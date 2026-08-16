@@ -19,7 +19,7 @@ router.post('/signup', async (req, res) => {
       password,
       options: {
         data: { name, surname },
-        emailRedirectTo: `${CLIENT_URL}/signin`,
+        emailRedirectTo: `${CLIENT_URL}/pricing`,
       },
     });
 
