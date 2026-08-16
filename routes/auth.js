@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 const billingRoutes = require('./billing');
+const CLIENT_URL = (process.env.CLIENT_URL || 'https://researchhub-sigma.vercel.app').replace(/\/$/, '');
 
 // Sign Up
 router.post('/signup', async (req, res) => {
@@ -18,7 +19,7 @@ router.post('/signup', async (req, res) => {
       password,
       options: {
         data: { name, surname },
-        emailRedirectTo: `${process.env.CLIENT_URL}/signin`,
+        emailRedirectTo: `${CLIENT_URL}/signin`,
       },
     });
 
@@ -128,7 +129,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.CLIENT_URL}/reset-password`,
+      redirectTo: `${CLIENT_URL}/reset-password`,
     });
 
     if (error) {

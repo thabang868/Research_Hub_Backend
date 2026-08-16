@@ -4,7 +4,7 @@ const router = express.Router();
 const supabase = require('../config/supabase');
 
 const PAYSTACK = { secretKey: process.env.PAYSTACK_SECRET_KEY || '', apiUrl: 'https://api.paystack.co' };
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
+const CLIENT_URL = process.env.CLIENT_URL || 'https://researchhub-sigma.vercel.app';
 const PLANS = {
   free_trial: { name: 'Free Trial', price: 0, duration_hours: 24, devices: 1 },
   daily: { name: 'Daily Plan', price: 10, duration_hours: 24, devices: 2 },
@@ -25,11 +25,7 @@ function paystackHeaders() {
   return { Authorization: `Bearer ${PAYSTACK.secretKey}`, 'Content-Type': 'application/json' };
 }
 
-function checkoutClientUrl(req) {
-  const origin = req.get('origin');
-  // Vite may select 5173, 5174, etc. in development. Returning to the
-  // initiating local origin prevents Paystack from redirecting to a stale port.
-  if (origin && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return origin;
+function checkoutClientUrl() {
   return CLIENT_URL.replace(/\/$/, '');
 }
 async function paystackRequest(path, options = {}) {
@@ -71,7 +67,7 @@ router.post('/paystack/initialize', requireAuth, async (req, res) => {
     const reference = pending.id;
 
     const amount = Math.round(PLANS[plan].price * 100);
-    const clientUrl = checkoutClientUrl(req);
+    const clientUrl = checkoutClientUrl();
     const checkout = await paystackRequest('/transaction/initialize', {
       method: 'POST',
       body: JSON.stringify({

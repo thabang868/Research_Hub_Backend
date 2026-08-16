@@ -37,8 +37,8 @@ npm install
 Create a `.env` file in the backend directory:
 
 ```env
-PORT=5000
-CLIENT_URL=http://localhost:5173
+PORT=10000
+CLIENT_URL=https://researchhub-sigma.vercel.app
 
 # Supabase
 SUPABASE_URL=your_supabase_url
@@ -75,7 +75,7 @@ npm run dev
 npm start
 ```
 
-Server runs on `http://localhost:5000` by default.
+The production API is hosted at `https://research-hub-backend-wt4p.onrender.com`.
 
 ## External APIs
 

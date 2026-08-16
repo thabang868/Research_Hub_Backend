@@ -20,7 +20,7 @@ const billingRoutes = require('./routes/billing');
 const intelligenceRoutes = require('./routes/intelligence');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 // ══════════════════════════════════════════════
 //  BMAD LAYER 1: SECURITY
@@ -29,21 +29,8 @@ app.use(securityHeaders);
 
 app.use(cors({
   origin: function (origin, callback) {
-    const allowed = [
-      process.env.CLIENT_URL,
-      'http://localhost:5173',
-      'http://localhost:5174',
-      'http://127.0.0.1:5173',
-      'http://127.0.0.1:5174',
-      'http://localhost:3000',
-      'http://localhost:3005',
-      'http://127.0.0.1:3000',
-      'http://127.0.0.1:3005',
-    ].filter(Boolean);
-
-    const isLocalDevOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || '');
-
-    if (!origin || allowed.some((url) => origin.startsWith(url)) || isLocalDevOrigin) {
+    const allowed = [process.env.CLIENT_URL || 'https://researchhub-sigma.vercel.app'].map((url) => url.replace(/\/$/, ''));
+    if (!origin || allowed.includes(origin.replace(/\/$/, ''))) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
