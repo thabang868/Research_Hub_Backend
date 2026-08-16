@@ -63,6 +63,11 @@ SEMANTIC_SCHOLAR_KEY=your_key
 NEWS_API_KEY=your_newsapi_key
 FINNHUB_API_KEY=your_finnhub_key
 ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+
+PAYSTACK_SECRET_KEY=sk_test_replace_me
+PAYSTACK_PUBLIC_KEY=pk_test_replace_me
+CLIENT_URL=backend_url
+
 ```
 
 ### 3. Run the server
