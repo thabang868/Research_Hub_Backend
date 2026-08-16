@@ -38,8 +38,6 @@ Create a `.env` file in the backend directory:
 
 ```env
 PORT=10000
-CLIENT_URL=https://researchhub-sigma.vercel.app
-
 # Supabase
 SUPABASE_URL=your_supabase_url
 SUPABASE_SERVICE_KEY=your_service_key
