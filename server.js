@@ -81,6 +81,11 @@ app.use('/api/billing', billingRoutes);
 // ── BMAD Intelligence Routes ──
 app.use('/api/intel', intelligenceRoutes);
 
+// Public landing endpoint for Render probes and direct browser visits.
+app.get('/', (_req, res) => {
+  res.json({ status: 'ok', service: 'ResearchHub Backend API', health: '/api/health' });
+});
+
 // ══════════════════════════════════════════════
 //  BMAD ENHANCED HEALTH CHECK
 // ══════════════════════════════════════════════
